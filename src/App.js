@@ -1,9 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch, Link, NavLink, Redirect } from 'react-router-dom';
 import './App.css';
+import AuthPage from './AuthPage';
+import { getUser } from './services/supabase-utils';
 
 function App() {
-  const [userSession, setUserSession] = useState('');
+  const [userSession, setUserSession] = useState(null);
+
+  useEffect(() => {
+    setUserSession(getUser());
+  }, []);
+
   return (
     <BrowserRouter>
       <div>
@@ -32,7 +39,7 @@ function App() {
           <Route exact path='/auth'>
             {
               !userSession //user does not have active session
-                ? <p>/auth</p>
+                ? <AuthPage setUserSession={ setUserSession } />
                 : <Redirect to='/' />
             }
           </Route>
