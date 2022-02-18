@@ -1,24 +1,57 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Switch, Link, NavLink, Redirect } from 'react-router-dom';
 import './App.css';
+import AuthPage from './AuthPage';
+import ListPage from './ListPage';
+import Navigation from './Navigation';
+import { getUser } from './services/supabase-utils';
 
 function App() {
+  const [userSession, setUserSession] = useState(getUser());
+
+  useEffect(() => {
+    setUserSession(getUser());
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div>
+        {
+          userSession && <Navigation />
+        }
+        <Switch>
+          <Route exact path='/'>
+            {
+              userSession
+                ? <Redirect to='/list' />
+                : <Redirect to='/auth' />
+            }
+          </Route>
+          <Route exact path='/list'>
+            {
+              userSession
+                ? <ListPage />
+                : <Redirect to='auth' />
+            }
+          </Route>
+          <Route exact path='/search'>
+            {
+              userSession
+                ? <p>/search</p>
+                : <Redirect to='/auth' />
+            }
+          </Route>
+          <Route exact path='/auth'>
+            {
+              !userSession //user does not have active session
+                ? <AuthPage setUserSession={setUserSession} />
+                : <Redirect to='/' />
+            }
+          </Route>
+
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
