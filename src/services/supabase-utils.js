@@ -22,3 +22,11 @@ export async function logout() {
 
   return (window.location.href = '/');
 }
+
+export async function getWatchList() {
+  const response = await client
+    .from('movie_watchlist')
+    .select();
+
+  return checkError(response);
+}

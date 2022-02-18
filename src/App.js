@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch, Link, NavLink, Redirect } from 'react-router-dom';
 import './App.css';
 import AuthPage from './AuthPage';
+import ListPage from './ListPage';
 import Navigation from './Navigation';
 import { getUser } from './services/supabase-utils';
 
@@ -29,7 +30,7 @@ function App() {
           <Route exact path='/list'>
             {
               userSession
-                ? <p>/list</p>
+                ? <ListPage />
                 : <Redirect to='auth' />
             }
           </Route>
