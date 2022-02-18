@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 require('dotenv').config();
 
-
+    //eslint-disable-next-line
 exports.handler = async (event) => {
   try {
     const movieId = 666;
@@ -14,6 +14,7 @@ exports.handler = async (event) => {
       body: json
     };
   } catch (error) {
+    //eslint-disable-next-line
     console.log(error);
     return {
       statusCode: 500,

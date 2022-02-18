@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Switch, Link, NavLink, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import AuthPage from './AuthPage';
 import ListPage from './ListPage';
