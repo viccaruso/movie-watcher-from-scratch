@@ -4,6 +4,7 @@ import './App.css';
 import AuthPage from './AuthPage';
 import ListPage from './ListPage';
 import Navigation from './Navigation';
+import SearchPage from './SearchPage';
 import { getUser } from './services/supabase-utils';
 
 function App() {
@@ -37,7 +38,7 @@ function App() {
           <Route exact path='/search'>
             {
               userSession
-                ? <p>/search</p>
+                ? <SearchPage />
                 : <Redirect to='/auth' />
             }
           </Route>
