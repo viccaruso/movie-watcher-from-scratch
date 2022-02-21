@@ -10,7 +10,6 @@ export default function SearchPage() {
     e.preventDefault();
     const response = await searchTMDBMovies(query);
     setResults(response);
-    console.log(response);
   }
 
   return (

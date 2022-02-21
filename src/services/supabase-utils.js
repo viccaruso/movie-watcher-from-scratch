@@ -56,4 +56,6 @@ export async function toggleWatched(id, watched) {
     .update({ watched: !watched })
     .match({ id })
     .single();
+
+  return checkError(response);
 }
