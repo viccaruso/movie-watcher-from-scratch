@@ -17,7 +17,7 @@ export default function ListPage() {
     <div className='listpage-container'>
       <h1>Your Watchlist</h1>
       {
-        movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)
+        movies.map((movie) => <MovieCard key={movie.id} movie={movie} fetchAndRefresh={fetchAndRefresh}/>)
       }
     </div>
   );
