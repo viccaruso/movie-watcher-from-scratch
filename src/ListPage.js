@@ -14,11 +14,13 @@ export default function ListPage() {
     fetchAndRefresh();
   }, []);
   return (
-    <div className='listpage-container'>
+    <>
       <h1>Your Watchlist</h1>
-      {
-        movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)
-      }
-    </div>
+      <div className='listpage-container'>
+        {
+          movies.map((movie) => <MovieCard key={movie.id} movie={movie} fetchAndRefresh={fetchAndRefresh} />)
+        }
+      </div>
+    </>
   );
 }

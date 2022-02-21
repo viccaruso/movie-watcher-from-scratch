@@ -3,9 +3,12 @@ require('dotenv').config();
 
     //eslint-disable-next-line
 exports.handler = async (event) => {
+  const query = event.queryStringParameters.query;
+  const page = event.queryStringParameters.page;
+  const URL = `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${process.env.TMDB_KEY}&language=en-US&page=${page}&include_adult=false`;
+
   try {
-    const movieId = 666;
-    const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.TMDB_KEY}&language=en-US`);
+    const response = await fetch(URL);
     const data = await response.json();
     const json = JSON.stringify({ data });
     

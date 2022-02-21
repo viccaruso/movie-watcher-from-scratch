@@ -1,4 +1,15 @@
-import { client, checkError } from './client';
+import { createClient } from '@supabase/supabase-js';
+export const client = createClient(
+  process.env.REACT_APP_SUPABASE_URL,
+  process.env.REACT_APP_SUPABASE_KEY
+);
+
+export function checkError({ data, error }) {
+  if (error) {
+    throw error;
+  }
+  return data;
+}
 
 export function getUser() {
   // if has session return session user
@@ -26,7 +37,26 @@ export async function logout() {
 export async function getWatchList() {
   const response = await client
     .from('movie_watchlist')
-    .select();
+    .select()
+    .order('id');
+
+  return checkError(response);
+}
+
+export async function addMovieToWatchList(movie) {
+  const response = await client
+    .from('movie_watchlist')
+    .insert(movie);
+
+  return checkError(response);
+}
+
+export async function toggleWatched(id, watched) {
+  const response = await client
+    .from('movie_watchlist')
+    .update({ watched: !watched })
+    .match({ id })
+    .single();
 
   return checkError(response);
 }
