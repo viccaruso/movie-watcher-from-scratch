@@ -36,7 +36,7 @@ export default function MovieCard({ movie, fetchAndRefresh }) {
 
   return (
     <div 
-      className='movie-card' 
+      className={`movie-card watched-${movie.watched}`}
       onClick={useLocation().pathname === '/search' ? addToWatchList : setIsWatched}
     >
       <h1>{movie.title}</h1>
@@ -47,8 +47,8 @@ export default function MovieCard({ movie, fetchAndRefresh }) {
       }
       {movie.director && <p>Directed by: {movie.director}</p>}
       {movie.runtime && <p>Runtime: {movie.runtime} minutes</p>}
-      {movie.watched && <p>Watched!</p>}
-      <p>{movie.description}</p>
+      {movie.watched ? <p>Watched!</p> : <p>Have not watched.</p>}
+      <p className='movie-description'>{movie.description}</p>
     </div>
   );
 }

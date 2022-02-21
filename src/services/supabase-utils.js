@@ -37,7 +37,8 @@ export async function logout() {
 export async function getWatchList() {
   const response = await client
     .from('movie_watchlist')
-    .select();
+    .select()
+    .order('id');
 
   return checkError(response);
 }
